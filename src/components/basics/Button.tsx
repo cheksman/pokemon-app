@@ -8,10 +8,8 @@ export enum types {
 
 type Props = {
   label: string;
-  fullwidth?: boolean;
-  width?: string;
-  color?: string;
   type?: types;
+  className?: string;
   disabled?: boolean;
   isLoading?: boolean;
   onClick?: () => void;
@@ -19,11 +17,9 @@ type Props = {
 
 const Button: React.FC<Props> = ({
   label,
-  fullwidth = true,
-  width,
-  color,
   type,
   onClick,
+  className,
   isLoading,
   disabled,
 }) => {
@@ -32,15 +28,7 @@ const Button: React.FC<Props> = ({
       onClick={onClick}
       disabled={disabled}
       type={type}
-      className={`mx-auto bg-${
-        !!color ? color : disabled ? "gray-200" : "pink-600"
-      } py-2 px-4 rounded mb-4 ${fullwidth ? "min-w-full" : ""} ${
-        !!width ? "w-" + width : ""
-      } text-white hover:bg-${
-        !!color ? color : disabled ? "gray-200" : "pink-700"
-      } focus:outline-none focus:ring-2 focus:ring-${
-        !!color ? color : disabled ? "gray-200" : "pink-700"
-      } focus:ring-opacity-50`}
+      className={className}
     >
       {isLoading ? "Loading..." : label}
     </button>

@@ -2,39 +2,30 @@ import React from "react";
 
 type Props = {
     image: string;
-    link?: string;
     title: string;
-    description: string;
+    altText: string;
+    onClick?: React.MouseEventHandler<HTMLElement>
 }
 
 const DisplayBox: React.FC<Props> = ({
     image,
-    link,
+    altText,
     title,
-    description
+    onClick
 }) => {
   return (
-    <div className="w-full bg-white rounded shadow-2xl">
-      <div className="flex flex-row items-center justify-center p-2">
-        <div className="w-1/4 flex items-center justify-center">
-        </div>
-        <div className="w-3/4">
-          <h3 className="text-xs">{title}</h3>
-        </div>
-      </div>
-      <div className="h-52 md:h-44 lg:h-40 xl:h-36">
+    <section role="button" className="w-full p-4 rounded-full hover:bg-zinc-100" onClick={onClick}>
+      <div className="w-full flex justify-center">
         <img
           src={image}
-          alt="school"
-          className="h-full w-full"
+          alt={altText}
+          className="rounded-full w-20 h-20"
         />
       </div>
-      <div className="h-28 p-2">
-        <p className="text-sm text-center text-gray-600">
-          {description}
-        </p>
+      <div className="w-full">
+        <h4 role="button" className="text-black-600 text-center">{title}</h4>
       </div>
-    </div>
+    </section>
   );
 };
 

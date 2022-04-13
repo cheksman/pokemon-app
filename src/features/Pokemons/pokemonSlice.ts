@@ -1,21 +1,32 @@
 import { ActionReducerMapBuilder, createSlice } from '@reduxjs/toolkit'
-import { PokemonState } from '../../interfaces/Pokemons'
-import { getPokemonsByPage } from './pokemonActions'
+import {  Pokemon, PokemonState } from '../../interfaces/Pokemons'
+import { SliceStatus } from '../../interfaces/SliceStatus'
+import { getPagedPokemons } from '../../services/Pokemon'
 
-// Define the initial state using that type
-const initialState: PokemonState = {
-  pokemons: []
-}
 
 export const pokemonSlice = createSlice({
   name: 'pokemon',
-  // `createSlice` will infer the state type from the `initialState` argument
-  initialState,
+  initialState: {
+    pokemons: [] as Pokemon[],
+    count: 0,
+    status: SliceStatus.idle
+  },
   reducers: {},
   extraReducers: (builder: ActionReducerMapBuilder<PokemonState>) =>
   builder
-    .addCase(getPokemonsByPage, (state, action) => ({
+    .addCase(getPagedPokemons.pending, (state) => ({
       ...state,
+      status: SliceStatus.pending
+    }))
+    .addCase(getPagedPokemons.fulfilled, (state, action) => ({
+      ...state,
+      pokemons: action.payload.pokemons,
+      count: action.payload.count,
+      status: SliceStatus.fulfilled
+    }))
+    .addCase(getPagedPokemons.rejected, (state, action) => ({
+      ...state,
+      status: SliceStatus.rejected
     }))
     .addDefaultCase(state => state),
 })
