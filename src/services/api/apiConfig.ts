@@ -1,8 +1,8 @@
 import axios, {AxiosRequestConfig} from 'axios';
 import { Methods } from '../../interfaces/HttpTypes';
 
-  export const callPlainApi = (url: string, data: any, method: Methods): Promise<any> =>
-    new Promise((resolve, reject) => {
+  export function callPlainApi<Response> (url: string, data: any, method: Methods): Promise<Response> {
+    return new Promise((resolve, reject) => {
       const axiosOptions: AxiosRequestConfig = { timeout: 30000,
        headers: {
         "Content-Type": "application/json",
@@ -61,3 +61,4 @@ import { Methods } from '../../interfaces/HttpTypes';
           });
       }
     });
+  }

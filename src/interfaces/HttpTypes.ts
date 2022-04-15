@@ -4,3 +4,7 @@ export enum Methods  {
     put = "PUT",
     patch = "PATCH"
 }
+
+export enum EndPoints {
+    AllPokemons = '/pokemon'
+}
